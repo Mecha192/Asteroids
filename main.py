@@ -1,24 +1,27 @@
-# allows the use of the pygame library
 import pygame
-import constants
 from constants import *
+from player import Player
+
 
 def main():
     pygame.init()
-    print("Starting Asteroids!")
-    print(f"Screen width: {constants.SCREEN_WIDTH}")
-    print(f"Screen height: {constants.SCREEN_HEIGHT}")
-    clock = pygame.time.Clock()
-    dt = 0
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    clock = pygame.time.Clock()
+    player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
+    dt = 0
+
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return
-        pygame.Surface.fill(screen, (0, 0, 0))
+
+        screen.fill("black")
+        player.draw(screen)
         pygame.display.flip()
-        clock.tick(60)
-        dt = pygame.time.get_ticks() / 1000
+
+        # limit the framerate to 60 FPS
+        dt = clock.tick(60) / 1000
+
 
 if __name__ == "__main__":
     main()
